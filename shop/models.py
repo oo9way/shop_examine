@@ -26,6 +26,11 @@ class Shop(models.Model):
         self.save()
         return True
 
+    def remove_admin(self, user):
+        self.shop_admins.remove(user)
+        self.save()
+        return True
+
 
 class Product(models.Model):
     title = models.CharField(max_length=255)

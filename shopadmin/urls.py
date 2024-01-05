@@ -13,6 +13,10 @@ urlpatterns = [
         "shops/<int:shop>/add-admin/<int:user>/",
         views.AddAdminToShopAPIView.as_view(),
     ),
+    path(
+        "shops/<int:shop>/remove-admin/<int:user>/",
+        views.RemoveAdminFromShopAPIView.as_view(),
+    ),
     # Products
     path(
         "products/requests/",

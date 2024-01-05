@@ -108,3 +108,17 @@ class AddAdminToShopAPIView(APIView):
         return Response(
             {"detail": "Added admin successfully"}, status=status.HTTP_200_OK
         )
+
+
+class RemoveAdminFromShopAPIView(APIView):
+    permission_classes = [AdminsPermission]
+
+    def post(self, request, shop, user):
+        shop = get_object_or_404(Shop, pk=shop)
+        user = get_object_or_404(User, pk=user, is_shop_owner=True)
+
+        shop.remove_admin(user)
+
+        return Response(
+            {"detail": "Removed admin successfully"}, status=status.HTTP_200_OK
+        )
