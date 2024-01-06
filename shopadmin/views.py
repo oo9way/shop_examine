@@ -36,7 +36,7 @@ class UserDetailUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
 class AdminShopModelViewSet(viewsets.ModelViewSet):
     model = Shop
     permission_classes = [AdminsPermission]
-    queryset = Shop.objects.all()
+    queryset = Shop.objects.select_related("products")
     serializer_class = ShopSerializer
 
 

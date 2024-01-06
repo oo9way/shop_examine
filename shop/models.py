@@ -8,7 +8,7 @@ class Shop(models.Model):
         max_length=255, upload_to="images/", null=True, blank=True
     )
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="shops")
-    shop_admins = models.ManyToManyField(User)
+    shop_admins = models.ManyToManyField(User, blank=True)
     is_active = models.BooleanField(default=False)
 
     def activate(self):
@@ -30,6 +30,13 @@ class Shop(models.Model):
         self.shop_admins.remove(user)
         self.save()
         return True
+
+    def add_product(self, product):
+        if Product.objects.create(
+            title=product["title"], amount=product["amount"], shop=self
+        ):
+            return True
+        return False
 
 
 class Product(models.Model):
